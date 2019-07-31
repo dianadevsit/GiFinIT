@@ -1,7 +1,6 @@
 $(document).ready(function(){
   var topics = ['ferrari', 'bently', 'jaguar', 'Lamborghini', 'cadillac', 'mustang', 'challenger', 'camaro','audi'];
-
-  // ========================================================
+});
 
 //  create topics array buttons
   function buttonExpress(){
@@ -89,5 +88,3 @@ $(document).on('click', '#addExpress', function(){
 });
 
 
-
-});
