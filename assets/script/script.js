@@ -1,5 +1,6 @@
 $(document).ready(function(){
   var topics = ['ferrari', 'bently', 'jaguar', 'Lamborghini', 'cadillac', 'mustang', 'challenger', 'camaro','audi'];
+  console.log(topics);
 });
 
 //  create topics array buttons
@@ -25,12 +26,12 @@ $(document).on('click', '.expression', function() {
   console.log(express);
   
   var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=dc6zaTOxFJmzC&limit=10";
-      // console.log(queryURL);
+      console.log(queryURL);
       $.ajax({url: queryURL, method: 'GET'})
       .done(function(response) {
           // grabs the data
           var results = response.data;
-          // console.log(results);
+          console.log(results);
           //empties the div before adding more gifs
           $('#expressView').empty();
               //loops through the data
@@ -46,7 +47,7 @@ $(document).on('click', '.expression', function() {
                   
                   // pulling the rating
                       var rating = results[j].rating;
-                          // console.log(rating);
+                          console.log(rating);
                       var displayRated= $('<p>').text("Rating: " + rating);
                       $('#expressView').prepend(displayRated);
           
