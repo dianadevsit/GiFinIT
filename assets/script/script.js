@@ -1,145 +1,93 @@
+$(document).ready(function(){
+  var topics = ['ferrari', 'bently', 'jaguar', 'Lamborghini', 'cadillac', 'mustang', 'challenger', 'camaro','audi'];
 
-// // function gif(response) {
-// //   var article= $("<article>");
-// //   article.addClass("card")
-// // }
-// // var getGifSearch = [];
-// // var getGif= [];
+  // ========================================================
 
-// // getGifSearch = JSON.parse(localStorage.getItem("gif"));
-// // if (Array.isArray(getGifSearch)) {
+//  create topics array buttons
+  function buttonExpress(){
+      $('#buttonsView').empty();
+      
+      for ( var i=0; i < topics.length; i++) {
+          //create all buttons
+          var a = $('<button>');
+          a.addClass('expression');
+          a.attr('data-name', topics[i]);
+          a.text(topics[i]);
+          $('#buttonsView').append(topics);
+      }
+  }    
+  buttonExpress();
+ 
 
-// // for (var i = 0; i < getGifSearch.length; i++) {
-// //     var gif = getGifSearch[i];
-// //     getGif(gif);
-// //   }
+//on button click
+$(document).on('click', '.expression', function() {
 
-// // }
-
-// // function createGif(response) {
-// //   var gif = $("<gif>");
-// //   gif.addClass("")
-// // }
-
-
-// //     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=JqeAg76X8VwxNiUz8Nt2hSOiuOdP880y&q=" + getGif + "&limit=1";
-
-// //     $.ajax({
-// //       url: queryURL,
-// //       method: "GET"
-// //     }).then(function(response) {
-// //       document.write(JSON.stringify(response));
+  var express = $(this).html(); 
+  console.log(express);
   
-// //     });
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=dc6zaTOxFJmzC&limit=10";
+      // console.log(queryURL);
+      $.ajax({url: queryURL, method: 'GET'})
+      .done(function(response) {
+          // grabs the data
+          var results = response.data;
+          // console.log(results);
+          //empties the div before adding more gifs
+          $('#expressView').empty();
+              //loops through the data
+              for ( var j=0; j < results.length; j++) {
+                  var imageDiv = $('<div>');
+                  var imageView = results[j].images.fixed_height.url;
+                  var still = results[j].images.fixed_height_still.url;
+                      // console.log(imageView);  
+                  var expressImage = $('<img>').attr("src", still).attr('data-animate', imageView).attr('data-still', still);
+                  expressImage.attr('data-state', 'still');
+                  $('#expressView').prepend(expressImage);
+                  expressImage.on('click', playGif);
+                  
+                  // pulling the rating
+                      var rating = results[j].rating;
+                          // console.log(rating);
+                      var displayRated= $('<p>').text("Rating: " + rating);
+                      $('#expressView').prepend(displayRated);
+          
+              } //for loop
+      }); // done response
 
-// $("#search").click(function() {
-//   var gif = $("#getGif").val();
-//   $("")
-// })
+      function playGif() { 
+                  var state = $(this).attr('data-state');
+                  console.log(state);
+               if ( state == 'still'){
+                   $(this).attr('src', $(this).data('animate'));
+                    $(this).attr('data-state', 'animate');
+               } else{
+                   $(this).attr('src', $(this).data('still'));
+                   $(this).attr('data-state', 'still');
+                  }
 
-$(document).ready(function() {
-  addButtons();
-});
-var topics;
-var queryURL;
-var results;
-var getGifSearch;
-var newBtn;
+              } //on click express
+              
+  }) // document on click
+
+     
 
 
-function addButtons() {
-  for(var i = 0; i < getGifSearch.length; i++) {
-    newBtn = $("<button>");
-    newBtn.addClass("btn btn primary btn-sm topic-btn");
-    newBtn.text(getGifSearch[i]);
-    $("#btn-div").append(newBtn);
+//adding new button
+$(document).on('click', '#addExpress', function(){
+  if ($('#express-input').val().trim() == ''){
+    alert('Input can not be left blank');
+ }
+ else {
+  var express = $('#express-input').val().trim();
+  topics.push(express);
+  $('#express-input').val('');
+  buttonExpress();
+  return false;
+
   }
-}
-
-$(document).on("click", ".topic-btn", function() {
-  topic = $(this).text();
-  if(topic.includes(" ")) {
-    topic = topic.replace(/ /g, "+");
-  }
-
-  queryURL = "https://api.giphy.com/v1/gifs/search?api_key=JqeAg76X8VwxNiUz8Nt2hSOiuOdP880y&q=" + getGif + "&limit=1";
-  $.ajax( { 
-    url: queryURL,
-    method: "GET"
-  }).done(function(response) {
-    results = response.data;
-
-  }
-})
-
-for (var i = 0; i < results.length; i++) {
-
-  rating = $("<p>");
-  rating.attr("class", "rating")
-  rating.text("Rating: " + results[i].rating);
-  
-  topicImg = $("<img>");
-  topicImg.attr({ "class": "topic-img",
-                  "state": "still",
-                  "src": results[i].images.fixed_height_still.url,
-                  "still-url": results[i].images.fixed_height_still.url,
-                  "animate-url": results[i].images.fixed_height.url });
-
-  imgDiv = $("<div>");
-  imgDiv.addClass("img-div");
-  imgDiv.append(topicImg, rating);
-
-  $("#images-container").append(imgDiv);
-}
-});
-});
-
-// on-click event handler to toggle animation
-$(document).on("click", ".topic-img", function() {
-
-state = $(this).attr("state");
-
-if(state === "still") {
-
-$(this).attr("src", $(this).attr("animate-url"));
-$(this).attr("state", "animate");
-}
-
-if(state === "animate") {
-
-$(this).attr("src", $(this).attr("still-url"));
-$(this).attr("state", "still");
-}
-});
-
-// on-click event handler to submit added search term
-$(document).on("click", "#submit", function(event) {
-
-event.preventDefault();
-
-newSearchTerm = $("#search-term").val();
-
-if(newSearchTerm !== "") {
-
-searchTerms.push(newSearchTerm);
-
-addButtons();
-
-$("#search-term").val("");
-}
 
 });
 
-// on-click event handler to submit added search term
-$(document).on("click", "#pop", function(event) {
 
-event.preventDefault();
 
-if(searchTerms.length > 0) {
-
-sound.play();
-searchTerms.pop();
-addButtons();
-}
 });
-
