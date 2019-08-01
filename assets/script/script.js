@@ -1,22 +1,22 @@
 $(document).ready(function(){
-  var topics = ['ferrari', 'bently', 'jaguar', 'Lamborghini', 'cadillac', 'mustang', 'challenger', 'camaro','audi'];
-  console.log(topics);
-});
+//   var topics = ['ferrari', 'bently', 'jaguar', 'Lamborghini', 'cadillac', 'mustang', 'challenger', 'camaro','audi'];
+//   console.log(topics);
+// });
 
-//  create topics array buttons
-  function buttonExpress(){
-      $('#buttonsView').empty();
+// //  create topics array buttons
+//   function buttonExpress(){
+//       $('#buttonsView').empty();
       
-      for ( var i=0; i < topics.length; i++) {
-          //create all buttons
-          var a = $('<button>');
-          a.addClass('expression');
-          a.attr('data-name', topics[i]);
-          a.text(topics[i]);
-          $('#buttonsView').append(topics);
-      }
-  }    
-  buttonExpress();
+//       for ( var i=0; i < topics.length; i++) {
+//           //create all buttons
+//           var a = $('<button>');
+//           a.addClass('expression');
+//           a.attr('data-name', topics[i]);
+//           a.text(topics[i]);
+//           $('#buttonsView').append(topics);
+// //       }
+// //   }    
+//   buttonExpress();
  
 
 //on button click
@@ -25,7 +25,7 @@ $(document).on('click', '.expression', function() {
   var express = $(this).html(); 
   console.log(express);
   
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=dc6zaTOxFJmzC&limit=10";
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=e826c9fc5c929e0d6c6d423841a282aa";
       console.log(queryURL);
       $.ajax({url: queryURL, method: 'GET'})
       .done(function(response) {
@@ -42,14 +42,14 @@ $(document).on('click', '.expression', function() {
                       // console.log(imageView);  
                   var expressImage = $('<img>').attr("src", still).attr('data-animate', imageView).attr('data-still', still);
                   expressImage.attr('data-state', 'still');
-                  $('#expressView').prepend(expressImage);
+                  $('#expressView').append(expressImage);
                   expressImage.on('click', playGif);
                   
                   // pulling the rating
                       var rating = results[j].rating;
                           console.log(rating);
                       var displayRated= $('<p>').text("Rating: " + rating);
-                      $('#expressView').prepend(displayRated);
+                      $('#expressView').append(displayRated);
           
               } //for loop
       }); // done response
@@ -89,3 +89,4 @@ $(document).on('click', '#addExpress', function(){
 });
 
 
+});
