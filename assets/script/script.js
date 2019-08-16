@@ -12,22 +12,14 @@ $(document).ready(function() {
     $.ajax({
       url: cargifs,
       method: "GET",
-      dataType: "JSON",
-      success: function(cars) {
-        let output = "";
-        let latestCars = cars.avatar_url;
+      dataType: "JSON"}).done(function(response) {
         //find the array with for loop 
         for (var i = 0; i < 4; i++) {
-            output += `
-             
-             <div class="card clearfix" style="width: 18rem; display:float;">
-              <img src="${latestCars[i].avatar_url}" class="card-img-top">
+            console.log(response.data[i]);
+            $('#gifs').append("<img alt ='"+response.data[i].title+"'src='"+response.data[i].images.fixed_height_downsampled.url+"'>");
           
-             </div>
-             `;
-          //  console.log(latestCars);
         }
       }
-    }
+    
     )}
     )});
