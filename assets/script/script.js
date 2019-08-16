@@ -16,8 +16,11 @@ $(document).ready(function() {
         //find the array with for loop 
         for (var i = 0; i < 4; i++) {
             console.log(response.data[i]);
-            $('#gifs').append("<img alt ='"+response.data[i].title+"'src='"+response.data[i].images.fixed_height_downsampled.url+"'>");
-          
+            $('#cargifs').append("<img alt ='"+response.data[i].title+"'src='"+response.data[i].images.fixed_height_downsampled.url+"'>");
+         // to show the image in body
+            var image = $("<div>");
+            image.append(cargifs);
+            $(".card-body").append(image);
         }
       }
     
