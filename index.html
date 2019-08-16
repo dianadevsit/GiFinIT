@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+   <title>Car Meme Generator</title>
+   <!-- Bootstrap -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+   <!-- Script -->
+   <script type="text/javascript" src="assets/script/script.js"></script> 
+   <!--Font Awesome-->
+   <script src="https://kit.fontawesome.com/ba12d81664.js"></script>
 </head>
 <body>
 <div class="container jumbotron">
 	<div class="styles">
-	  <h1>Choose your CAR</h1>
-
-	  <!-- Buttons will go Here  -->
-	  <div id="buttonsView"></div>
-
-	  <form id="express-form">
-	    <label for="express-input">Add CAR</label>
-	    <input type="text" id="express-input" >
-	    
-	    <!-- Button triggers new gifs to be added -->
-	    <input id="addExpress" type="submit" value="Submit">
-	  </form>
-
-
-	  <!-- Gifs will Go here -->
-	  <div id="expressView" data-state="still" ></div>
-	  </div>
-	  <div id="expressDiv"></div>
-</div> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="assets/script/script.js"></script> 
+	  <h1>Type Your Car</h1>
+	</div>
+    <!--search box-->
+    <section class="d-flex justify-content-center mt-4">
+		<input id="searchBox">
+		<div><h3 id="searchBtn" class="btn bg-dark text-light"> <i class="fas fa-search"> Search </i></h3>
+	
+		</div>
+</section>
+</div>
 </body>
-</html>
